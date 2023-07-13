@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "todo"
+version = "0.1.0"
+description = "This is the todo app for learning in codavatar"
+authors = ["invincibleaayu <giridip862101@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.100.0"
+sqlalchemy = "^2.0.18"
+uvicorn = "^0.22.0"
+psycopg2-binary = "^2.9.6"
+fastapi-sqlalchemy = "^0.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
