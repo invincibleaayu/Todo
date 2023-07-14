@@ -3,8 +3,9 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from database import SessionLocal, engine
 import models
+from hashing_password import hash_password
 from models import User, Todo
-from schemas import  UserCreate, TodoCreate, TodoUpdate, UserRead, TodoRead
+from schemas import  UserCreate, TodoCreate, TodoUpdate, UserRead, TodoRead, UserInDB
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -21,7 +22,7 @@ def get_db():
 @app.post("/users", response_model=UserRead)
 def create_user(user: UserCreate,  db: Session = Depends(get_db)):
     try:
-        db_user = User(email=user.email, hashed_password="example")
+        db_user = User(email=user.email, hashed_password=hash_password(user.password))
         print(db_user)
         db.add(db_user)
         db.commit()

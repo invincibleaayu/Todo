@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List
+from models import User
 # Pydantic model for creating a new user
 class UserCreate(BaseModel):
     email: str
@@ -36,5 +36,12 @@ class TodoRead(BaseModel):
     description: str
     owner: UserRead
 
+    class Config:
+        orm_mode = True
+
+#pydantic model for hashed password
+class UserInDB(BaseModel):
+    hashed_password: str
+    
     class Config:
         orm_mode = True
