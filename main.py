@@ -8,18 +8,12 @@ from models import User, Todo
 from schemas import  UserCreate, TodoCreate, TodoUpdate, UserRead, TodoRead, UserInDB
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
-
+from dependencies import get_db, get_current_user, get_current_active_user, get_user
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+
 
 @app.post("/users", response_model=UserRead)
 def create_user(user: UserCreate,  db: Session = Depends(get_db)):
