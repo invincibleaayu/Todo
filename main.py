@@ -32,9 +32,8 @@ def create_user(user: UserCreate,  db: Session = Depends(get_db)):
 
 
 @app.get("/users/{user_id}", response_model=UserRead)
-def read_user(user_id: int):
+def read_user(user_id: int,db: Session = Depends(get_db)):
     try:
-        db = SessionLocal()
         db_user = db.query(User).get(user_id)
         if db_user is None:
             raise HTTPException(status_code=404, detail="User not found")
@@ -44,14 +43,14 @@ def read_user(user_id: int):
 
 
 @app.post("/todos", response_model=TodoRead)
-def create_todo(todo: TodoCreate):
+def create_todo(todo: TodoCreate,db: Session = Depends(get_db)):
     try:
-        db = SessionLocal()
         db_todo = Todo(
             title=todo.title,
             description=todo.description,
             owner_id=todo.owner_id
         )
+        
         db.add(db_todo)
         db.commit()
         db.refresh(db_todo)
@@ -61,9 +60,8 @@ def create_todo(todo: TodoCreate):
 
 
 @app.get("/todos/{todo_id}", response_model=TodoRead)
-def read_todo(todo_id: int):
+def read_todo(todo_id: int,db: Session = Depends(get_db)):
     try:
-        db = SessionLocal()
         db_todo = db.query(Todo).get(todo_id)
         if db_todo is None:
             raise HTTPException(status_code=404, detail="Todo not found")
@@ -73,9 +71,8 @@ def read_todo(todo_id: int):
 
 
 @app.put("/todos/{todo_id}", response_model=TodoRead)
-def update_todo(todo_id: int, todo: TodoUpdate):
+def update_todo(todo_id: int, todo: TodoUpdate,db: Session = Depends(get_db)):
     try:
-        db = SessionLocal()
         db_todo = db.query(Todo).get(todo_id)
         if db_todo is None:
             raise HTTPException(status_code=404, detail="Todo not found")
@@ -89,9 +86,8 @@ def update_todo(todo_id: int, todo: TodoUpdate):
 
 
 @app.delete("/todos/{todo_id}")
-def delete_todo(todo_id: int):
+def delete_todo(todo_id: int,db: Session = Depends(get_db)):
     try:
-        db = SessionLocal()
         db_todo = db.query(Todo).get(todo_id)
         if db_todo is None:
             raise HTTPException(status_code=404, detail="Todo not found")
