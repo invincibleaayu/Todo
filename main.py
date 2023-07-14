@@ -6,6 +6,8 @@ import models
 from hashing_password import hash_password
 from models import User, Todo
 from schemas import  UserCreate, TodoCreate, TodoUpdate, UserRead, TodoRead, UserInDB
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from typing import Annotated
 
 models.Base.metadata.create_all(bind=engine)
 

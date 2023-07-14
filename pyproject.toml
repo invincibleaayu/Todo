@@ -6,7 +6,7 @@ authors = ["invincibleaayu <giridip862101@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.11"
 fastapi = "^0.100.0"
 sqlalchemy = "^2.0.18"
 uvicorn = "^0.22.0"
@@ -14,6 +14,7 @@ psycopg2-binary = "^2.9.6"
 fastapi-sqlalchemy = "^0.2.1"
 python-dotenv = "^1.0.0"
 bcrypt = "^4.0.1"
+annotated = "^0.0.2"
 
 
 [build-system]
